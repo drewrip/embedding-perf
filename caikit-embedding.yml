@@ -1,0 +1,19 @@
+---
+global:
+  gc: true
+  waitWhenFinished: true
+jobs:
+  - name: caikit-embedding
+    jobIterations: 1
+    qps: 1
+    burst: 1
+    preLoadImages: false
+    namespacedIterations: false
+    namespace: nlp-test
+    objects:
+      - objectTemplate: templates/job.yml
+        replicas: 1
+        waitOptions:
+          forCondition: Complete
+        inputVars:
+          containerImage: quay.io/dripberg/llm-load-test@sha256:452818c1549cab040c920201117b47268af162d31d7cbf96961c2a3318e49487

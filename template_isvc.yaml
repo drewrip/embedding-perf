@@ -1,0 +1,21 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  annotations:
+    serving.knative.openshift.io/enablePassthrough: "true"
+    sidecar.istio.io/inject: "true"
+    sidecar.istio.io/rewriteAppHTTPProbers: "true"
+  name: caikit-standalone-isvc
+spec:
+  predictor:
+    # replace in following  <NameOfAServiceAccount> with the name
+    # of a ServiceAccount that has the secret for accessing the model
+    serviceAccountName: sa
+    model:
+      modelFormat:
+        name: caikit
+      # Replace with the actual name of the deployed ServingRuntime
+      runtime: caikit-standalone-runtime
+      storageUri: s3://psap-hf-models/all-MiniLM-L12-v2-caikit-embedding/
+    minReplicas: 1
+    maxReplicas: 1

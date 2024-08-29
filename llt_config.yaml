@@ -1,0 +1,35 @@
+dataset:
+  file: datasets/openorca_large_subset_011.jsonl
+  max_input_tokens: 1024
+  max_output_tokens: 256
+  max_queries: 1000
+  max_sequence_tokens: 1024
+  min_input_tokens: 0
+extra_metadata:
+  replicas: 1
+load_options:
+  concurrency: 2
+  duration: 60
+  type: constant
+output:
+  dir: /pv/output/
+  file: output.json
+  format: json
+plugin: caikit_embedding_plugin
+plugin_options:
+  batch_size: 10
+  host: https://caikit-standalone-isvc-nlp-test.apps.dripberg-t4-embeddings.rdu3.labs.perfscale.redhat.com
+  interface: http
+  model_max_input_tokens: 512
+  model_name: nasa-smd-ibm-st-caikit
+  only_summary: true
+  port: 80
+  save_raw_output: false
+  task: embedding
+  use_tls: false
+storage:
+  type: local
+warmup: true
+warmup_options:
+  requests: 1
+  timeout_sec: 20

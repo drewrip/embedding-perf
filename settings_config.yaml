@@ -1,0 +1,24 @@
+prefix: test5
+model:
+  - name: all-MiniLM-L12-v2-caikit
+    bucket_path: s3://psap-hf-models/all-MiniLM-L12-v2-caikit-embedding/
+    max_input_tokens: 128
+    replicas: 1
+  - name: bge-m3-caikit
+    bucket_path: s3://psap-hf-models/bge-m3-caikit-embedding/
+    max_input_tokens: 8192
+    replicas: 1
+  - name: multilingual-e5-large-caikit
+    bucket_path: s3://psap-hf-models/multilingual-e5-large-caikit-embedding/
+    max_input_tokens: 512
+    replicas: 1
+  - name: nasa-smd-ibm-st-caikit
+    bucket_path: s3://psap-hf-models/nasa-smd-ibm-st-caikit-embedding/
+    max_input_tokens: 512
+    replicas: 1
+duration: [60]
+concurrency: [1, 2]
+batch_size: [1, 10]
+device: [cpu, gpu]
+task: [embedding]
+interface: [http]

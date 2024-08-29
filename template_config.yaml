@@ -1,0 +1,34 @@
+output:
+  format: "json" # Maybe add option for pickle?
+  dir: "/pv/output/"
+  file: "output.json"
+warmup: True
+warmup_options:
+  requests: 1
+  timeout_sec: 20
+storage: # TODO
+  type: local
+dataset:
+  file: "datasets/openorca_large_subset_011.jsonl"
+  max_queries: 1000
+  min_input_tokens: 0
+  max_input_tokens: 1024
+  max_output_tokens: 256
+  max_sequence_tokens: 1024
+load_options:
+  type: constant #Future options: loadgen, stair-step
+  concurrency: 1
+  duration: 600 # In seconds. Maybe in future support "100s" "10m", etc...
+plugin: "caikit_embedding_plugin"
+plugin_options:
+  interface: "http" # Some plugins like caikit-nlp-client should support grpc/http
+  use_tls: False # Use True if querying an SSL grpc endpoint over https
+  model_name: "bge-m3-caikit"
+  model_max_input_tokens: 8192
+  host: "https://caikit-standalone-isvc-nlp-test.apps.dripberg-t4-embeddings.rdu3.labs.perfscale.redhat.com"
+  port: 80
+  task: "embedding"
+  only_summary: True
+  save_raw_output: False
+extra_metadata:
+  replicas: 1

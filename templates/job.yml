@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: caikit-embedding-burn-{{.Iteration}}
+  labels:
+    name: caikit-embedding-burn
+spec:
+  nodeSelector:
+    node-role.kubernetes.io/worker: ""
+  template:
+    spec:
+      containers:
+      - name: llm-load-test
+        image: {{.containerImage}}
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          privileged: false
+        env:
+        - name: LLM_LOAD_TEST_CONFIG
+          value: "/pv/llt_config.yaml"
+        volumeMounts:
+          - mountPath: "/pv"
+            name: results-pv
+      restartPolicy: Never
+      volumes:
+      - name: results-pv
+        persistentVolumeClaim:
+          claimName: results-pvc

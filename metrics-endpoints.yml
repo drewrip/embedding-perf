@@ -1,0 +1,8 @@
+- endpoint: https://<url for thano querier>
+  token: <token here>
+  metrics: [metrics.yml, metrics-aggregated.yml]
+  indexer:
+    type: opensearch
+    esServers: ["<OpenSearch db url>"]
+    defaultIndex: "<index name>"
+    insecureSkipVerify: true
